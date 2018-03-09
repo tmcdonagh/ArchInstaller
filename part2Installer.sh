@@ -1,4 +1,5 @@
 #!/bin/bash
+pacman -S --noconfirm dialog
 
 ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
 hwlock --systohc
