@@ -49,19 +49,43 @@ dialog \
   "Xfce4" "Lightweight DE of Choice" off \
   "Xfce4 Goodies" "Extras for Xfce4" off \
   "i3" "Popular Window Manager" off \
-  "Steam" "Gaming Storefront" \
-  "Defaults" "All programs I would find necessary" \
+  "Defaults" "All programs I would find necessary excluding those on this list" \
+  "LightDM" "Login with DE selection" \
   2> packageList.txt
-packageArray=( "Xfce4" "Xfce4 Goodies" "i3" "Steam" "Defaults" )
+packageArray=( "Xfce4" "Xfce4 Goodies" "i3" "Defaults" "LightDM" )
 for package in ${array[@]}
 do
-  if grep -q $package tempfile.txt
+  if grep -q $package packageList.txt
   then
-    # if statements for whether or not it is what package
+    if [ $package == "Xfce4" ]
+    then
+      pacman -S --noconfirm xorg xfce4
+    fi
+    if [ $package == "Xfce4 Goodies" ]
+    then
+      pacman -S --noconfirm xfce4-goodies 
+    fi
+    if [ $package == "i3" ]
+    then
+      pacman -S --noconfirm i3 dmenu
+    fi
+    if [ $package == "Defaults" ]
+    then
+      pacman -S --noconfirm docker gparted htop mupdf network-manager-applet rhythmbox speedtest-cli tigervnc tmux gtk3 intel-ucode
+
+    fi
+    if [ $package == "LightDM" ]
+    then
+      pacman -S -noconfirm lightdm lightdm-gtk-greeter
+      systemctl enable lightdm 
+      systemctl start lightdm
+    fi
   fi
 done
+grubdisk=$(dialog --inputbox "Where do you want grub installed? (e.g /dev/sda not /dev/sda1" 10 25 --output-fd 1)
+pacman -S --noconfirm bash-completion grub-bios os-prober
 
+grub-install --recheck $grubdisk
+grub-mkconfig -o /boot/grub/grub.cfg
 
-if [ $? == 0 ]
-then
-
+exit

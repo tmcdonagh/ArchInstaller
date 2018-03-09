@@ -86,6 +86,13 @@ then
   genfstab -U /mnt >> /mnt/etc/fstab
   cp part2Installer.sh /mnt/
   arch-chroot /mnt ./part2Installer.sh
+
+  dialog \
+    --yesno "Do you want to reboot?" 10 30
+  if [ $? == 0 ]
+  then 
+    reboot
+  fi
 else
   exit 1
 fi
