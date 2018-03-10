@@ -50,8 +50,8 @@ dialog \
   "Xfce4" "Lightweight DE of Choice" off \
   "Xfce4 Goodies" "Extras for Xfce4" off \
   "i3" "Popular Window Manager" off \
-  "Defaults" "All programs I would find necessary excluding those on this list" \
-  "LightDM" "Login with DE selection" \
+  "Defaults" "All programs I would find necessary excluding those on this list" off \
+  "LightDM" "Login with DE selection" off \
   2> packageList.txt
 packageArray=( "Xfce4" "Xfce4 Goodies" "i3" "Defaults" "LightDM" )
 for package in ${array[@]}
