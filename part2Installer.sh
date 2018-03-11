@@ -53,6 +53,9 @@ dialog \
   "Defaults" "All programs I would find necessary excluding those on this list" off \
   "LightDM" "Login with DE selection" off \
   2> packageList.txt
+echo cat packageList.txt
+sleep 1
+
 packageArray=( "Xfce4" "Xfce4 Goodies" "i3" "Defaults" "LightDM" )
 for package in ${array[@]}
 do
