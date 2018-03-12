@@ -53,9 +53,6 @@ dialog \
   "Defaults" "All programs I would find necessary excluding those on this list" off \
   "LightDM" "Login with DE selection" off \
   2> packageList.txt
-cat packageList.txt
-sleep 1
-
 packageArray=( "Xfce4" "Xfce4 Goodies" "i3" "Defaults" "LightDM" )
 for package in ${packageArray[@]}
 do
@@ -75,14 +72,13 @@ do
     fi
     if [ $package == "Defaults" ]
     then
-      pacman -S --noconfirm docker gparted htop mupdf network-manager-applet rhythmbox speedtest-cli tigervnc tmux gtk3 intel-ucode
+      pacman -S --noconfirm docker gparted htop mupdf network-manager-applet rhythmbox speedtest-cli tigervnc tmux gtk3 intel-ucode network-manager
 
     fi
     if [ $package == "LightDM" ]
     then
       pacman -S -noconfirm lightdm lightdm-gtk-greeter
       systemctl enable lightdm 
-      systemctl start lightdm
     fi
   fi
 done
