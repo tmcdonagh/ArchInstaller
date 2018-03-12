@@ -76,7 +76,7 @@ do
 
     elif [ $package == "LightDM" ]
     then
-      pacman -S -noconfirm lightdm lightdm-gtk-greeter
+      pacman -S --noconfirm lightdm lightdm-gtk-greeter
       systemctl enable lightdm 
     fi
   fi
