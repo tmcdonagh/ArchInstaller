@@ -47,49 +47,44 @@ while : ; do
   then
     echo "$username ALL=(ALL) ALL" >> /etc/sudoers
   fi
-  dialog \
-    --yesno "Do you want to set a password?" 10 30
-  if [ $? == 0 ]
+done
+dialog \
+  --checklist "Packages" 20 75 5 \
+  "Xfce4" "Lightweight DE of Choice" off \
+  "Xfce4 Goodies" "Extras for Xfce4" off \
+  "i3" "Popular Window Manager" off \
+  "Defaults" "All programs I would find necessary excluding those on this list" off \
+  "LightDM" "Login with DE selection" off \
+  2> packageList.txt
+packageArray=( "Xfce4" "Xfce4 Goodies" "i3" "Defaults" "LightDM" )
+for package in ${packageArray[@]}
+do
+  if grep -q $package packageList.txt
   then
-    dialog \
-    done
-    dialog \
-      --checklist "Packages" 20 75 5 \
-      "Xfce4" "Lightweight DE of Choice" off \
-      "Xfce4 Goodies" "Extras for Xfce4" off \
-      "i3" "Popular Window Manager" off \
-      "Defaults" "All programs I would find necessary excluding those on this list" off \
-      "LightDM" "Login with DE selection" off \
-      2> packageList.txt
-    packageArray=( "Xfce4" "Xfce4 Goodies" "i3" "Defaults" "LightDM" )
-    for package in ${packageArray[@]}
-    do
-      if grep -q $package packageList.txt
-      then
-        if [ $package == "Xfce4" ]
-        then
-          pacman -S --noconfirm xorg xfce4
-        elif [ $package == "Xfce4 Goodies" ]
-        then
-          pacman -S --noconfirm xfce4-goodies 
-        elif [ $package == "i3" ]
-        then
-          pacman -S --noconfirm i3 dmenu
-        elif [ $package == "Defaults" ]
-        then
-          pacman -S --noconfirm docker gparted htop mupdf network-manager-applet rhythmbox speedtest-cli tigervnc tmux gtk3 intel-ucode network-manager wpa_supplicant
+    if [ $package == "Xfce4" ]
+    then
+      pacman -S --noconfirm xorg xfce4
+    elif [ $package == "Xfce4 Goodies" ]
+    then
+      pacman -S --noconfirm xfce4-goodies 
+    elif [ $package == "i3" ]
+    then
+      pacman -S --noconfirm i3 dmenu
+    elif [ $package == "Defaults" ]
+    then
+      pacman -S --noconfirm docker gparted htop mupdf network-manager-applet rhythmbox speedtest-cli tigervnc tmux gtk3 intel-ucode network-manager wpa_supplicant
 
-        elif [ $package == "LightDM" ]
-        then
-          pacman -S -noconfirm lightdm lightdm-gtk-greeter
-          systemctl enable lightdm 
-        fi
-      fi
-    done
-    grubdisk=$(dialog --inputbox "Where do you want grub installed? (e.g /dev/sda not /dev/sda1" 10 25 --output-fd 1)
-    pacman -S --noconfirm bash-completion grub-bios os-prober
+    elif [ $package == "LightDM" ]
+    then
+      pacman -S -noconfirm lightdm lightdm-gtk-greeter
+      systemctl enable lightdm 
+    fi
+  fi
+done
+grubdisk=$(dialog --inputbox "Where do you want grub installed? (e.g /dev/sda not /dev/sda1" 10 25 --output-fd 1)
+pacman -S --noconfirm bash-completion grub-bios os-prober
 
-    grub-install --recheck $grubdisk
-    grub-mkconfig -o /boot/grub/grub.cfg
+grub-install --recheck $grubdisk
+grub-mkconfig -o /boot/grub/grub.cfg
 
-    exit
+exit
