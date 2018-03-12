@@ -39,11 +39,19 @@ while : ; do
   username=$(dialog --inputbox "What's the name of this user?" 10 25 --output-fd 1)
   useradd -m $username
   dialog \
+    --msgbox "\nInput $username 's password after this screen" 10 30
+  passwd $username
+  dialog \
     --yesno "Add user to list of sudoers?" 10 30
   if [ $? == 0 ]
   then
     echo "$username ALL=(ALL) ALL" >> /etc/sudoers
   fi
+  dialog \
+    --yesno "Do you want to set a password?" 10 30
+  if [ $? == 0 ]
+  then
+    dialog \
 done
 dialog \
   --checklist "Packages" 20 75 5 \
