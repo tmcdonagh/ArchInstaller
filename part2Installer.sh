@@ -81,6 +81,7 @@ do
     fi
   fi
 done
+sleep 1
 grubdisk=$(dialog --inputbox "Where do you want grub installed? (e.g /dev/sda not /dev/sda1" 10 25 --output-fd 1)
 pacman -S --noconfirm bash-completion grub-bios os-prober
 
