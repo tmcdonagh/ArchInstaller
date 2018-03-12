@@ -57,7 +57,7 @@ cat packageList.txt
 sleep 1
 
 packageArray=( "Xfce4" "Xfce4 Goodies" "i3" "Defaults" "LightDM" )
-for package in ${array[@]}
+for package in ${packageArray[@]}
 do
   if grep -q $package packageList.txt
   then
