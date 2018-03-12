@@ -72,7 +72,7 @@ do
       pacman -S --noconfirm i3 dmenu
     elif [ $package == "Defaults" ]
     then
-      pacman -S --noconfirm docker gparted htop mupdf network-manager-applet rhythmbox speedtest-cli tigervnc tmux gtk3 intel-ucode network-manager wpa_supplicant
+      pacman -S --noconfirm docker gparted htop mupdf network-manager-applet rhythmbox speedtest-cli tigervnc tmux gtk3 intel-ucode networkmanager wpa_supplicant
 
     elif [ $package == "LightDM" ]
     then
@@ -81,7 +81,6 @@ do
     fi
   fi
 done
-sleep 1
 grubdisk=$(dialog --inputbox "Where do you want grub installed? (e.g /dev/sda not /dev/sda1" 10 25 --output-fd 1)
 pacman -S --noconfirm bash-completion grub-bios os-prober
 
