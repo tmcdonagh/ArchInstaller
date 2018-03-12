@@ -72,7 +72,7 @@ do
     fi
     if [ $package == "Defaults" ]
     then
-      pacman -S --noconfirm docker gparted htop mupdf network-manager-applet rhythmbox speedtest-cli tigervnc tmux gtk3 intel-ucode network-manager
+      pacman -S --noconfirm docker gparted htop mupdf network-manager-applet rhythmbox speedtest-cli tigervnc tmux gtk3 intel-ucode network-manager wpa_supplicant
 
     fi
     if [ $package == "LightDM" ]
