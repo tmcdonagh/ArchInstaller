@@ -72,7 +72,7 @@ do
       pacman -S --noconfirm i3 dmenu
     elif [ $package == "Defaults" ]
     then
-      pacman -S --noconfirm docker gparted htop mupdf network-manager-applet rhythmbox speedtest-cli tigervnc tmux gtk3 intel-ucode networkmanager wpa_supplicant
+      pacman -S --noconfirm docker gparted htop mupdf network-manager-applet rhythmbox speedtest-cli tigervnc tmux gtk3 intel-ucode networkmanager wpa_supplicant gnome-keyring vim 
 
     elif [ $package == "LightDM" ]
     then
